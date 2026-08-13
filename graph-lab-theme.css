@@ -1,0 +1,12 @@
+:root{--owner:#15803d;--owner-stroke:#4ade80;--master-stroke:#60a5fa;--channel:#1d4ed8;--channel-stroke:#60a5fa;--radar:#0e7490;--radar-stroke:#22d3ee;--agent:#be185d;--agent-stroke:#f9a8d4;--entry:#4338ca;--entry-stroke:#818cf8;--data:#075985;--data-stroke:#38bdf8;--surface:#334155;--surface-stroke:#94a3b8}
+.owner>rect{fill:var(--owner)!important;stroke:var(--owner-stroke)!important}
+.master>rect{fill:transparent!important;stroke:var(--master-stroke)!important;filter:none!important}.master .kind{fill:#bfdbfe}.master .name{fill:#f8fafc}
+.channel>rect{fill:var(--channel)!important;stroke:var(--channel-stroke)!important}.telegram-kind{fill:#dbeafe!important}
+.telegram-node>.subbox rect{fill:#1e40af;stroke:#93c5fd}.telegram-node>.subbox:first-of-type rect{fill:var(--radar)!important;stroke:var(--radar-stroke)!important}
+.routing-core{fill:var(--agent)!important;stroke:var(--agent-stroke)!important}.routing-kicker{fill:#fce7f3!important}
+.research-box{fill:var(--agent)!important;stroke:var(--agent-stroke)!important}.research-kicker{fill:#fce7f3!important}
+.inbox-box{fill:var(--entry)!important;stroke:var(--entry-stroke)!important}.inbox-kicker{fill:#c7d2fe!important}
+.radar-personal rect{fill:var(--radar)!important;stroke:var(--radar-stroke)!important}
+.edge.routingedge,.edge.researchedge{stroke:var(--agent-stroke)!important}.edge.inboxedge{stroke:var(--entry-stroke)!important}.edge.radaredge{stroke:var(--radar-stroke)!important}.edge.knowledgeedge{stroke:var(--data-stroke)!important}
+.pill.routing-pill,.pill.research-pill{stroke:var(--agent)!important}.pill.inbox-pill{stroke:var(--entry)!important}.pill.radar-pill{stroke:var(--radar)!important}.pill.knowledge-pill{stroke:var(--data)!important}
+.owner-view-module{cursor:move}.owner-view-module text{text-anchor:middle}.owner-view-box{fill:var(--surface);stroke:var(--surface-stroke);stroke-width:1.7;filter:url(#shadow)}.owner-view-kicker{font-size:9px;letter-spacing:1px;font-weight:650;fill:#cbd5e1}.owner-view-name{font-size:14px;fill:#fff;font-weight:750}
