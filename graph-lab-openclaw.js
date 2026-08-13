@@ -1,11 +1,7 @@
 (()=>{
-  const mark=()=>{
-    const architect=document.querySelector('#nodes .routing-name');
-    if(architect && architect.textContent!=='🦞 ARCHITECT') architect.textContent='🦞 ARCHITECT';
-    const research=document.querySelector('#nodes .research-name');
-    if(research && research.textContent!=='🦞 Research Agent') research.textContent='🦞 Research Agent';
-  };
-  mark();
-  const nodes=document.getElementById('nodes');
-  if(nodes) new MutationObserver(mark).observe(nodes,{childList:true,subtree:true});
+const svg=document.getElementById('g');if(!svg)return;
+const icons=new Map([
+['Oriol','👤 Oriol'],['ChatGPT / Master','🤖 ChatGPT / Master'],['Telegram','✈️ Telegram'],['Radar','📡 Radar'],['Architect','🧭 Architect'],['Personal','👤 Personal'],['Intelligence','🧠 Intelligence'],['ARCHITECT','🦞 ARCHITECT'],['Research Agent','🦞 Research Agent'],['Writer Agent','🦞 Writer Agent'],['Curator Agent','🦞 Curator Agent'],['QA Agent','🦞 QA Agent'],['Model Recommend','🎯 Model Recommend'],['Inbox','📥 Inbox'],['Knowledge Database','🗄️ Knowledge Database'],['Radar Web','🌐 Radar Web'],['PRE-BARANES','🧩 PRE-BARANES'],['Baranes Core / Control Plane','🛡️ Baranes Core / Control Plane'],['Runtime Guardrails','🛡️ Runtime Guardrails'],['RepoOps','📦 RepoOps'],['HostOps','🖥️ HostOps'],['LedgerOps','📒 LedgerOps'],['PublicationOps','📤 PublicationOps'],['Coding Agents','💻 Coding Agents'],['Codex','⌨️ Codex'],['OpenCode','💻 OpenCode'],['OCWS','🛠️ OCWS'],['Quota State','📊 Quota State'],['Host Probes','🖥️ Host Probes'],['Diagnostic Probes','🩺 Diagnostic Probes'],['SDD','🧭 SDD'],['REPOS','🗃️ REPOS'],['ops_dashboard','📊 ops_dashboard'],['hf-downloader','⬇️ hf-downloader']]);
+function mark(){svg.querySelectorAll('text').forEach(t=>{const v=icons.get(t.textContent);if(v)t.textContent=v})}
+let scheduled=false;new MutationObserver(()=>{if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;mark()})}).observe(svg,{childList:true,subtree:true});mark();
 })();
