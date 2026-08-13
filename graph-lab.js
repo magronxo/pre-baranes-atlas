@@ -26,11 +26,12 @@ for(const id in initialModules) modules[id]={...initialModules[id]};
 const e=[
   {s:'oriol',t:'chatgpt',l:'intent / decisions',b:-35},
   {s:'telegram',t:'oriol',l:'attention / delivery',b:35},
-  {s:'telegram',sp:'radar',t:'prebaranes',tp:'personal',l:'personal radar',b:18,cls:'radaredge'},
+  {s:'telegram',sp:'radar',t:'prebaranes',tp:'radar',l:'radar',b:18,cls:'radaredge'},
   {s:'telegram',sp:'architect',t:'prebaranes',tp:'routing',l:'architect channel',b:30,cls:'routingedge'},
   {s:'chatgpt',t:'prebaranes',tp:'inbox',l:'inbox',b:12,cls:'inboxedge'},
   {s:'prebaranes',sp:'inbox',t:'prebaranes',tp:'routing',l:'dispatch',b:-22,cls:'inboxedge'},
   {s:'prebaranes',sp:'routing',t:'prebaranes',tp:'research',l:'research',b:24,cls:'researchedge'},
+  {s:'prebaranes',sp:'radar',t:'prebaranes',tp:'research',l:'research',b:-26,cls:'researchedge'},
   {s:'prebaranes',sp:'research',t:'prebaranes',tp:'knowledge',l:'knowledge',b:-18,cls:'knowledgeedge'}
 ];
 
@@ -46,13 +47,16 @@ function modulePort(name){
 function portInfo(id,port){
   if(id==='telegram'){
     const o=n.telegram;
-    if(port==='architect') return{x:o.x+66,y:o.y+101,hw:52,hh:29};
-    if(port==='radar') return{x:o.x+174,y:o.y+101,hw:52,hh:29};
+    if(port==='radar') return{x:o.x+66,y:o.y+101,hw:52,hh:29};
+    if(port==='architect') return{x:o.x+174,y:o.y+101,hw:52,hh:29};
     return{x:o.x+o.w/2,y:o.y+o.h/2,hw:o.w/2,hh:o.h/2};
   }
   if(id==='prebaranes'){
-    const c=n.prebaranes;
-    if(port==='personal'){const m=modules.radar;return{x:c.x+m.x+61,y:c.y+m.y+87,hw:51,hh:35};}
+    if(port==='radar') return modulePort('radar');
+    if(port==='personal'){
+      const c=n.prebaranes,m=modules.radar;
+      return{x:c.x+m.x+61,y:c.y+m.y+87,hw:51,hh:35};
+    }
     if(port==='routing') return modulePort('routing');
     if(port==='inbox') return modulePort('inbox');
     if(port==='research') return modulePort('research');
@@ -83,7 +87,7 @@ function renderTelegram(){
   g.appendChild(x('rect',{width:o.w,height:o.h,rx:16}));
   let t=x('text',{class:'telegram-kind',x:o.w/2,y:23});t.textContent='INTERFACE / CHANNEL';g.appendChild(t);
   t=x('text',{class:'telegram-title',x:o.w/2,y:48});t.textContent='Telegram';g.appendChild(t);
-  for(const [dx,label] of [[14,'Architect'],[122,'Radar']]){
+  for(const [dx,label] of [[14,'Radar'],[122,'Architect']]){
     const s=x('g',{class:'subbox',transform:`translate(${dx} 72)`});
     s.appendChild(x('rect',{width:104,height:58,rx:10}));
     const tt=x('text',{x:52,y:35});tt.textContent=label;s.appendChild(tt);g.appendChild(s);
