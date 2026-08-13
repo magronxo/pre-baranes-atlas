@@ -7,17 +7,16 @@ let drag=null,syncQueued=false;
 const P=e=>{const r=svg.getBoundingClientRect(),v=svg.viewBox.baseVal;return{x:v.x+(e.clientX-r.left)/r.width*v.width,y:v.y+(e.clientY-r.top)/r.height*v.height}};
 const T=g=>{const m=(g?.getAttribute('transform')||'').match(/translate\(([-.\d]+)[ ,]+([-.\d]+)\)/);return m?{x:+m[1],y:+m[2]}:{x:0,y:0}};
 const E=(tag,a={})=>{const q=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(a))q.setAttribute(k,v);return q};
-function preNode(){return nodes.querySelector('.container-node[data-id="prebaranes"]')}
-function pre(){const g=preNode(),p=T(g);return g?{x:p.x,y:p.y}:null}
-function source(id){if(id==='architect')return nodes.querySelector('.routing-module');if(id==='research')return nodes.querySelector('.research-module');if(id==='writer')return nodes.querySelector('.writer-module');return nodes.querySelector(`[data-delivery-id="${id}"]:not([data-global-agent-placeholder])`)}
+function pre(){const g=nodes.querySelector('.container-node[data-id="prebaranes"]'),p=T(g);return g?{g,x:p.x,y:p.y}:null}
+function source(id){if(id==='architect')return nodes.querySelector('.routing-module');if(id==='research')return nodes.querySelector('.research-module');if(id==='writer')return nodes.querySelector('.writer-module');return nodes.querySelector(`[data-delivery-id="${id}"]:not([data-global-slot])`)}
 function global(id){return layer.querySelector(`[data-global-agent="${id}"]`)}
 function absPos(g){let x=0,y=0,p=g;while(p&&p!==svg){const q=T(p);x+=q.x;y+=q.y;p=p.parentNode}return{x,y}}
 function size(g){const r=g?.querySelector('rect');return r?{w:+r.getAttribute('width'),h:+r.getAttribute('height')}:{w:190,h:78}}
 function defaults(){const c=pre()||{x:640,y:250};return{architect:{x:c.x-300,y:c.y+10},research:{x:c.x-300,y:c.y+135},writer:{x:c.x-300,y:c.y+240},curator:{x:c.x-300,y:c.y+345},qa:{x:c.x-300,y:c.y+450}}}
 function ensureState(id,g){if(Number.isFinite(state[id]?.x)&&Number.isFinite(state[id]?.y))return;const d=defaults()[id],s=size(g);state[id]={x:d.x,y:d.y,w:s.w,h:s.h}}
 function migrate(id){let g=global(id);if(!g){g=source(id);if(!g)return null;ensureState(id,g);g.classList.remove('module','atlas-external-owned');g.dataset.globalAgent=id;layer.appendChild(g)}else ensureState(id,g);g.style.cursor=document.body.dataset.atlasMode==='view'?'pointer':'move';g.setAttribute('transform',`translate(${state[id].x} ${state[id].y})`);return g}
-function ensurePlaceholders(){const p=preNode();if(!p)return;for(const id of ['curator','qa'])if(!p.querySelector(`[data-global-agent-placeholder="${id}"]`)){const h=E('g',{'data-delivery-id':id,'data-global-agent-placeholder':id,style:'display:none'});p.appendChild(h)}}
-function removeDuplicates(id,keep){const sel=id==='architect'?'.routing-module':id==='research'?'.research-module':id==='writer'?'.writer-module':`[data-delivery-id="${id}"]`;nodes.querySelectorAll(sel).forEach(g=>{if(g!==keep&&!g.hasAttribute('data-global-agent-placeholder'))g.remove()})}
+function removeDuplicates(id,keep){let sel=id==='architect'?'.routing-module':id==='research'?'.research-module':id==='writer'?'.writer-module':`[data-delivery-id="${id}"]:not([data-global-slot])`;nodes.querySelectorAll(sel).forEach(g=>{if(g!==keep)g.remove()})}
+function ensureLegacySlots(){const c=pre()?.g;if(!c)return;for(const id of ['curator','qa']){if(c.querySelector(`[data-global-slot="${id}"]`))continue;const s=E('g',{'data-delivery-id':id,'data-global-slot':id,visibility:'hidden','pointer-events':'none'});c.appendChild(s)}}
 function box(g,rectSel){if(!g)return null;const p=absPos(g),r=rectSel?g.querySelector(rectSel):g.querySelector('rect');return r?{x:p.x,y:p.y,w:+r.getAttribute('width'),h:+r.getAttribute('height')}:null}
 function boundary(b,ux,uy,out){const cx=b.x+b.w/2,cy=b.y+b.h/2,hw=b.w/2,hh=b.h/2,d=1/Math.max(Math.abs(ux)/(hw||1),Math.abs(uy)/(hh||1),.0001);return{x:cx+(out?1:-1)*ux*d,y:cy+(out?1:-1)*uy*d}}
 function geom(a,b,bend=0){const ax=a.x+a.w/2,ay=a.y+a.h/2,bx=b.x+b.w/2,by=b.y+b.h/2,dx=bx-ax,dy=by-ay,l=Math.hypot(dx,dy)||1,ux=dx/l,uy=dy/l,nx=-uy,ny=ux,S=boundary(a,ux,uy,true),Z=boundary(b,ux,uy,false),cx=(S.x+Z.x)/2+nx*bend,cy=(S.y+Z.y)/2+ny*bend;return{d:`M${S.x} ${S.y}Q${cx} ${cy} ${Z.x} ${Z.y}`,lx:(S.x+2*cx+Z.x)/4,ly:(S.y+2*cy+Z.y)/4}}
@@ -35,7 +34,7 @@ function redraw(){
  upd(edges.querySelector('path.runtime-entry-edge'),labels.querySelector('rect.runtime-entry-label'),architect,runtime,34);
  ownLink(writer,ledger,-18);ownLink(curator,ledger,18);ownLink(qa,repo,-18);
 }
-function sync(){for(const id of IDS)migrate(id);ensurePlaceholders();for(const id of IDS){const g=global(id);if(g)removeDuplicates(id,g)}redraw()}
+function sync(){for(const id of IDS){const g=migrate(id);if(g)removeDuplicates(id,g)}ensureLegacySlots();redraw()}
 function queueSync(){if(syncQueued)return;syncQueued=true;requestAnimationFrame(()=>{syncQueued=false;sync()})}
 function idFromTarget(t){return t.closest?.('[data-global-agent]')?.dataset.globalAgent||null}
 function dirty(){save?.classList.remove('saved');if(save)save.textContent='Save layout';if(status)status.textContent='Layout modificat · prem Save layout per conservar-lo'}
