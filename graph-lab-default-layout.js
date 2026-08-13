@@ -1,0 +1,47 @@
+(()=>{
+const defaults={
+'pre-baranes-atlas:graph-lab-layout:v1':{
+ version:3,
+ nodes:{
+  oriol:{x:570,y:37,w:190,h:82},
+  chatgpt:{x:562,y:147,w:190,h:82},
+  telegram:{x:263,y:70,w:240,h:150},
+  prebaranes:{x:33,y:246,w:780,h:520}
+ },
+ modules:{radar:{x:28,y:66},routing:{x:282,y:72},inbox:{x:570,y:66},research:{x:34,y:285},knowledge:{x:298,y:269}},
+ view:{x:0,y:0,w:1628,h:812}
+},
+'pre-baranes-atlas:external-layout:v2':{
+ radarweb:{x:43,y:122,w:200,h:82},
+ baranes:{x:813,y:161,w:800,h:602},
+ writer:{x:552,y:292,w:190,h:78},
+ baranesModules:{
+  runtime:{x:50,y:71,w:220,h:78},
+  repoops:{x:206,y:201,w:150,h:72},
+  hostops:{x:298,y:71,w:150,h:72},
+  ledgerops:{x:18,y:201,w:150,h:72},
+  publicationops:{x:56,y:337,w:150,h:72}
+ }
+},
+'pre-baranes-atlas:runtime-boxes:v1':{
+ coding:{x:865,y:594,w:300,h:150},
+ ocws:{x:1262,y:167,w:340,h:220}
+},
+'pre-baranes-atlas:delivery:v1':{
+ sdd:{x:1043,y:522,w:110,h:58},
+ repos:{x:1232,y:593,w:350,h:158},
+ curator:{x:598,y:407,w:190,h:78},
+ qa:{x:1294,y:449,w:190,h:78}
+},
+'pre-baranes-atlas:global-agents:v2':{
+ architect:{x:315,y:318,w:260,h:92},
+ research:{x:67,y:531,w:190,h:78},
+ writer:{x:585,y:538,w:190,h:78},
+ curator:{x:598,y:407,w:190,h:78},
+ qa:{x:1294,y:449,w:190,h:78}
+}
+};
+for(const [key,value] of Object.entries(defaults)){
+ try{if(localStorage.getItem(key)===null)localStorage.setItem(key,JSON.stringify(value))}catch(_){}
+}
+})();
