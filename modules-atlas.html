@@ -11,7 +11,7 @@
 <header class="top">
   <div>
     <h1>Atlas · Modules</h1>
-    <div class="sub">Phase 1 · raw modules · drag / pan / zoom · layout local persistent</div>
+    <div class="sub">Phase 2 · raw modules · draggable nodes + modelable relations</div>
   </div>
   <nav class="nav">
     <a href="./react-flow-test.html">Graph Lab</a>
@@ -29,11 +29,13 @@
       <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f59e0b"/></marker>
       <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".28"/></filter>
     </defs>
+    <g id="zones"></g>
     <g id="edges"></g>
     <g id="nodes"></g>
     <g id="labels"></g>
+    <g id="edge-handles"></g>
   </svg>
-  <div id="status" class="status">Phase 1 · mou els mòduls i revisa la topologia base</div>
+  <div id="status" class="status">Phase 2 · mou mòduls o els dos punts de cada fletxa · Save layout per conservar-ho</div>
 </main>
 </div>
 <script src="./modules-atlas.js"></script>
