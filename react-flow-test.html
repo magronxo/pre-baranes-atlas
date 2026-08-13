@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PRE-BARANES Atlas — Graph Lab</title>
 <link rel="stylesheet" href="./graph-lab.css">
+<link rel="stylesheet" href="./graph-lab-theme.css">
 </head>
 <body>
 <div class="app">
@@ -23,12 +24,22 @@
 <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#38bdf8"/></marker>
 <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".32"/></filter>
 </defs><g id="containers"></g><g id="nodes"></g><g id="edges"></g><g id="labels"></g></svg>
-<div id="status" class="status">Arrossega Radar, Routing, Inbox, Research i Knowledge · Save layout per conservar-ho</div>
+<div id="status" class="status">Arrossega els mòduls dins PRE-BARANES · Save layout per conservar-ho</div>
 </section>
-<aside class="side"><h2>Llegenda</h2><div class="legend"><div class="li"><span class="sw" style="background:#b45309"></span>Owner / persona</div><div class="li"><span class="sw" style="background:#1d4ed8"></span>Master</div><div class="li"><span class="sw" style="background:#047857"></span>Canal / contenidor</div><div class="li"><span class="sw" style="background:#9d174d"></span>Research Agent</div><div class="li"><span class="sw" style="background:#075985"></span>Knowledge Database</div><div class="li"><span style="font-size:16px;line-height:1">🦞</span>Agent executat amb OpenClaw</div></div><p>Les fletxes es dibuixen per sobre de totes les caixes i acaben a la vora dels nodes. Research Agent i Knowledge Database són movibles dins PRE-BARANES.</p></aside>
+<aside class="side"><h2>Llegenda · tipus</h2><div class="legend">
+<div class="li"><span class="sw" style="background:#15803d;border-color:#4ade80"></span>Owner / persona</div>
+<div class="li"><span class="sw" style="background:transparent;border-color:#60a5fa"></span>Master / reasoning</div>
+<div class="li"><span class="sw" style="background:#1d4ed8;border-color:#60a5fa"></span>Channel / interface</div>
+<div class="li"><span class="sw" style="background:#0e7490;border-color:#22d3ee"></span>Radar / intelligence</div>
+<div class="li"><span class="sw" style="background:#be185d;border-color:#f9a8d4"></span>🦞 Agent · OpenClaw</div>
+<div class="li"><span class="sw" style="background:#4338ca;border-color:#818cf8"></span>Entry / handoff</div>
+<div class="li"><span class="sw" style="background:#075985;border-color:#38bdf8"></span>Data / knowledge</div>
+<div class="li"><span class="sw" style="background:#334155;border-color:#94a3b8"></span>Surface / view</div>
+</div><p>Els colors representen el tipus del component. PRE-BARANES continua transparent; les fletxes es dibuixen per sobre de totes les caixes.</p></aside>
 </main>
 </div>
 <script src="./graph-lab.js"></script>
 <script src="./graph-lab-openclaw.js"></script>
+<script src="./graph-lab-owner-view.js"></script>
 </body>
 </html>
