@@ -3,92 +3,83 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>PRE-BARANES Atlas — React Flow Prototype</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xyflow/react@12.11.2/dist/style.css">
+  <title>PRE-BARANES Atlas — Graph Lab</title>
   <style>
-    :root{color-scheme:light;--bg:#f4f6f9;--panel:#ffffff;--border:#d9e0e8;--text:#172033;--muted:#697586;--accent:#3157d5;--human:#fff8e8;--agent:#eef4ff;--channel:#eefaf3;--line:#8391a5}
-    *{box-sizing:border-box}html,body,#root{height:100%;margin:0}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}
-    .shell{height:100%;display:grid;grid-template-rows:auto 1fr}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 18px;background:#fff;border-bottom:1px solid var(--border)}
-    .title h1{font-size:16px;margin:0}.title p{font-size:12px;color:var(--muted);margin:3px 0 0}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{color:var(--text);text-decoration:none;border:1px solid var(--border);border-radius:9px;padding:7px 10px;font-size:12px;background:#fff}.nav a.active{border-color:#9eace1;background:#eef2ff;color:#2948ad}
-    .stage{position:relative;min-height:0;background:radial-gradient(circle at 1px 1px,#dce2ea 1px,transparent 1px);background-size:24px 24px}
-    #loading{position:absolute;inset:0;display:grid;place-items:center;z-index:20;background:var(--bg);color:var(--muted);font-size:14px}.status-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 16px;max-width:420px;box-shadow:0 8px 28px rgba(16,24,40,.07)}
-    .atlas-node{width:210px;border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:0 8px 24px rgba(16,24,40,.08);overflow:hidden}.atlas-node .kind{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);padding:10px 13px 0}.atlas-node .name{font-size:15px;font-weight:650;padding:5px 13px 13px}.atlas-node.human{background:var(--human)}.atlas-node.agent{background:var(--agent)}.atlas-node.channel{background:var(--channel)}
-    .react-flow__node{border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important}.react-flow__edge-path{stroke:var(--line);stroke-width:1.8}.react-flow__edge-text{font-size:11px;fill:#4f5d70}.react-flow__edge-textbg{fill:#fff;fill-opacity:.96}.react-flow__handle{width:10px;height:10px;background:#5d6d83;border:2px solid #fff}.react-flow__controls{box-shadow:none!important;border:1px solid var(--border);overflow:hidden}.react-flow__controls-button{border-bottom:1px solid var(--border)!important;background:#fff!important}.react-flow__minimap{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#fff!important}
-    .hint{position:absolute;z-index:5;left:16px;bottom:16px;border:1px solid var(--border);background:rgba(255,255,255,.94);border-radius:10px;padding:8px 10px;font-size:11px;color:var(--muted);pointer-events:none}
-    @media(max-width:720px){.topbar{align-items:flex-start;flex-direction:column}.atlas-node{width:170px}.nav a:nth-child(-n+2){display:none}}
+    :root{--bg:#f5f7fa;--panel:#fff;--line:#d9e0e8;--text:#172033;--muted:#667085;--blue:#eaf2ff;--amber:#fff4db;--green:#eaf8ef;--violet:#f1edff}
+    *{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}
+    .app{height:100%;display:grid;grid-template-rows:auto 1fr}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 18px;background:#fff;border-bottom:1px solid var(--line)}
+    .title h1{font-size:17px;margin:0}.title p{font-size:12px;color:var(--muted);margin:3px 0 0}.nav{display:flex;gap:7px;flex-wrap:wrap}.nav a,.nav button{font:inherit;font-size:12px;text-decoration:none;color:var(--text);background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 10px;cursor:pointer}.nav a.active{background:#172033;color:#fff;border-color:#172033}
+    .workspace{min-height:0;display:grid;grid-template-columns:1fr 250px}.canvas-wrap{position:relative;min-width:0;min-height:0;background:radial-gradient(circle at 1px 1px,#d9e0e8 1px,transparent 1.2px);background-size:24px 24px}.cy{position:absolute;inset:0}.status{position:absolute;left:16px;bottom:16px;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:11px;color:var(--muted);pointer-events:none}.side{border-left:1px solid var(--line);background:#fff;padding:18px}.side h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}.legend{display:grid;gap:10px}.legend-item{display:flex;align-items:center;gap:9px;font-size:12px}.swatch{width:14px;height:14px;border-radius:4px;border:1px solid #cbd4df}.owner{background:var(--amber)}.master{background:var(--blue)}.agent{background:var(--violet)}.channel{background:var(--green)}.side p{font-size:12px;line-height:1.5;color:var(--muted);margin:18px 0 0}.error{display:none;position:absolute;inset:20px auto auto 20px;max-width:520px;background:#fff7f7;border:1px solid #efcaca;border-radius:12px;padding:13px 15px;color:#8a2424;font-size:13px;z-index:5}
+    @media(max-width:800px){.workspace{grid-template-columns:1fr}.side{display:none}.topbar{align-items:flex-start;flex-direction:column}.canvas-wrap{min-height:650px}}
   </style>
 </head>
 <body>
-<div class="shell">
+<div class="app">
   <header class="topbar">
-    <div class="title"><h1>Atlas · React Flow Prototype</h1><p>Prova mínima d’interacció i llenguatge visual</p></div>
-    <nav class="nav"><a href="./index.html">Overview</a><a href="./flow.html">Relational Flow</a><a class="active" href="./react-flow-test.html">React Flow Test</a></nav>
+    <div class="title"><h1>Atlas · Graph Lab</h1><p>Prototype interactiu · 4 nodes · drag / pan / zoom</p></div>
+    <nav class="nav">
+      <a href="./index.html">Overview</a>
+      <a href="./flow.html">Relational Flow</a>
+      <a class="active" href="./react-flow-test.html">Graph Lab</a>
+      <button id="fitBtn" type="button">Fit</button>
+      <button id="resetBtn" type="button">Reset layout</button>
+    </nav>
   </header>
-  <main class="stage">
-    <div id="root" style="position:absolute;inset:0"></div>
-    <div id="loading"><div class="status-card"><strong>Carregant mapa interactiu…</strong><div style="margin-top:6px">Si aquest missatge no desapareix, la llibreria externa no s’ha pogut carregar.</div></div></div>
-    <div class="hint">Arrossega nodes · zoom/pan · crea connexions des dels punts laterals</div>
+  <main class="workspace">
+    <section class="canvas-wrap">
+      <div id="cy" class="cy"></div>
+      <div id="error" class="error">No s'ha pogut carregar el motor del mapa. La pàgina base funciona, però la llibreria gràfica no ha arribat des del CDN.</div>
+      <div id="status" class="status">Arrossega els nodes · roda per zoom · arrossega el fons per moure el mapa</div>
+    </section>
+    <aside class="side">
+      <h2>Llegenda</h2>
+      <div class="legend">
+        <div class="legend-item"><span class="swatch owner"></span>Owner / persona</div>
+        <div class="legend-item"><span class="swatch master"></span>Master</div>
+        <div class="legend-item"><span class="swatch agent"></span>Agent</div>
+        <div class="legend-item"><span class="swatch channel"></span>Canal</div>
+      </div>
+      <p>Aquesta prova valida només el llenguatge visual i la manipulació. Les posicions mogudes encara no es guarden al repositori.</p>
+    </aside>
   </main>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape@3.34.0/dist/cytoscape.min.js"></script>
 <script>
-  window.addEventListener('error',function(e){
-    var box=document.getElementById('loading');
-    if(box){box.style.display='grid';box.innerHTML='<div class="status-card"><strong>No s’ha pogut iniciar React Flow.</strong><div style="margin-top:6px">'+(e.message||'Error de càrrega')+'</div></div>';}
+(function(){
+  const error=document.getElementById('error');
+  const status=document.getElementById('status');
+  if(typeof window.cytoscape!=='function'){error.style.display='block';return;}
+  const original={oriol:{x:150,y:280},chatgpt:{x:450,y:180},architect:{x:760,y:280},telegram:{x:450,y:400}};
+  const elements=[
+    {data:{id:'oriol',label:'Oriol\nOwner / Project Manager'},position:original.oriol,classes:'owner'},
+    {data:{id:'chatgpt',label:'ChatGPT / Master\nMaster'},position:original.chatgpt,classes:'master'},
+    {data:{id:'architect',label:'Architect Agent\nAgent'},position:original.architect,classes:'agent'},
+    {data:{id:'telegram',label:'Telegram\nInterface / Channel'},position:original.telegram,classes:'channel'},
+    {data:{id:'e1',source:'oriol',target:'chatgpt',label:'intent / decisions'}},
+    {data:{id:'e2',source:'chatgpt',target:'architect',label:'delegate / route'},classes:'upper'},
+    {data:{id:'e3',source:'architect',target:'chatgpt',label:'result / evidence'},classes:'lower'},
+    {data:{id:'e4',source:'telegram',target:'oriol',label:'attention / delivery'}}
+  ];
+  const cy=cytoscape({
+    container:document.getElementById('cy'),elements,layout:{name:'preset',fit:true,padding:85},minZoom:.45,maxZoom:2.2,wheelSensitivity:.18,
+    style:[
+      {selector:'node',style:{'width':190,'height':74,'shape':'round-rectangle','background-color':'#ffffff','border-width':1.5,'border-color':'#cbd4df','label':'data(label)','font-family':'Inter,system-ui,sans-serif','font-size':13,'font-weight':600,'color':'#172033','text-wrap':'wrap','text-max-width':165,'text-valign':'center','text-halign':'center','line-height':1.45,'overlay-opacity':0,'shadow-blur':12,'shadow-color':'#101828','shadow-opacity':.08,'shadow-offset-y':5}},
+      {selector:'node.owner',style:{'background-color':'#fff4db','border-color':'#e6c979'}},
+      {selector:'node.master',style:{'background-color':'#eaf2ff','border-color':'#9eb8e8'}},
+      {selector:'node.agent',style:{'background-color':'#f1edff','border-color':'#bcb1e8'}},
+      {selector:'node.channel',style:{'background-color':'#eaf8ef','border-color':'#9dcfb0'}},
+      {selector:'node:selected',style:{'border-width':3,'border-color':'#3157d5'}},
+      {selector:'edge',style:{'width':1.8,'line-color':'#8b98aa','target-arrow-color':'#8b98aa','target-arrow-shape':'triangle','arrow-scale':.8,'curve-style':'bezier','label':'data(label)','font-size':10,'color':'#667085','text-background-color':'#fff','text-background-opacity':.92,'text-background-padding':4,'text-rotation':'autorotate','text-margin-y':-9}},
+      {selector:'edge.upper',style:{'curve-style':'unbundled-bezier','control-point-distances':55,'control-point-weights':.5}},
+      {selector:'edge.lower',style:{'curve-style':'unbundled-bezier','control-point-distances':-55,'control-point-weights':.5}},
+      {selector:'edge:selected',style:{'width':2.8,'line-color':'#3157d5','target-arrow-color':'#3157d5'}}
+    ]
   });
-</script>
-<script type="module">
-  try {
-    const ReactModule = await import('https://esm.sh/react@18.3.1');
-    const React = ReactModule.default;
-    const { useCallback } = ReactModule;
-    const { createRoot } = await import('https://esm.sh/react-dom@18.3.1/client');
-    const RF = await import('https://esm.sh/@xyflow/react@12.11.2?deps=react@18.3.1,react-dom@18.3.1');
-    const { ReactFlow, Background, Controls, MiniMap, Handle, Position, addEdge, useNodesState, useEdgesState, MarkerType } = RF;
-    const h = React.createElement;
-
-    function AtlasNode({data}){
-      return h('div',{className:'atlas-node '+data.tone},
-        h(Handle,{type:'target',position:Position.Left}),
-        h('div',{className:'kind'},data.kind),
-        h('div',{className:'name'},data.label),
-        h(Handle,{type:'source',position:Position.Right})
-      );
-    }
-
-    const nodeTypes={atlas:AtlasNode};
-    const initialNodes=[
-      {id:'oriol',type:'atlas',position:{x:40,y:210},data:{label:'Oriol',kind:'Owner / PM',tone:'human'}},
-      {id:'chatgpt',type:'atlas',position:{x:360,y:210},data:{label:'ChatGPT / Master',kind:'Master',tone:'agent'}},
-      {id:'architect',type:'atlas',position:{x:700,y:210},data:{label:'Architect Agent',kind:'Agent',tone:'agent'}},
-      {id:'telegram',type:'atlas',position:{x:360,y:400},data:{label:'Telegram',kind:'Interface / Channel',tone:'channel'}}
-    ];
-    const arrow={type:MarkerType.ArrowClosed,width:18,height:18,color:'#8391a5'};
-    const initialEdges=[
-      {id:'o-c',source:'oriol',target:'chatgpt',label:'intent / decisions',type:'smoothstep',markerEnd:arrow},
-      {id:'c-a',source:'chatgpt',target:'architect',label:'delegate / route',type:'smoothstep',markerEnd:arrow},
-      {id:'a-c',source:'architect',target:'chatgpt',label:'result / evidence',type:'smoothstep',markerEnd:arrow},
-      {id:'t-o',source:'telegram',target:'oriol',label:'attention / delivery',type:'smoothstep',markerEnd:arrow}
-    ];
-
-    function App(){
-      const [nodes,setNodes,onNodesChange]=useNodesState(initialNodes);
-      const [edges,setEdges,onEdgesChange]=useEdgesState(initialEdges);
-      const onConnect=useCallback((params)=>setEdges((eds)=>addEdge({...params,type:'smoothstep',markerEnd:arrow},eds)),[]);
-      return h(ReactFlow,{nodes,edges,nodeTypes,onNodesChange,onEdgesChange,onConnect,fitView:true,fitViewOptions:{padding:.25},minZoom:.4,maxZoom:1.7,defaultEdgeOptions:{type:'smoothstep'},colorMode:'light'},
-        h(Background,{gap:24,size:1,color:'#dce2ea'}),
-        h(MiniMap,{pannable:true,zoomable:true,nodeStrokeWidth:2,nodeColor:'#e9edf3'}),
-        h(Controls,null)
-      );
-    }
-
-    createRoot(document.getElementById('root')).render(h(App));
-    document.getElementById('loading').style.display='none';
-  } catch (err) {
-    const box=document.getElementById('loading');
-    box.style.display='grid';
-    box.innerHTML='<div class="status-card"><strong>No s’ha pogut iniciar React Flow.</strong><div style="margin-top:6px">'+String(err && err.message ? err.message : err)+'</div></div>';
-    console.error(err);
-  }
+  cy.on('dragfree','node',()=>{status.textContent='Layout modificat localment · encara no guardat';});
+  cy.on('tap','node',e=>{status.textContent=e.target.data('label').replace('\n',' · ');});
+  document.getElementById('fitBtn').addEventListener('click',()=>cy.animate({fit:{eles:cy.elements(),padding:85}},{duration:280}));
+  document.getElementById('resetBtn').addEventListener('click',()=>{cy.nodes().forEach(n=>n.position(original[n.id()]));cy.fit(cy.elements(),85);status.textContent='Layout restaurat';});
+})();
 </script>
 </body>
 </html>
