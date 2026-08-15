@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PRE-BARANES Atlas — RepoOps Flow</title>
+<link rel="stylesheet" href="./repoops-flow.css">
+</head>
+<body data-mode="design">
+<div class="app">
+<header class="top">
+  <div>
+    <h1>Atlas · RepoOps Flow</h1>
+    <div class="sub"><span class="target-badge">TARGET COGNITIVE MODEL</span><span>Seed → Feature → SDD → candidate → governed repo effect</span></div>
+  </div>
+  <nav class="nav">
+    <a href="./index.html">Home</a>
+    <a href="./react-flow-test.html">System Atlas</a>
+    <a href="./modules-atlas.html">Modules Atlas</a>
+    <a href="./data-observability.html">Data & Observability</a>
+    <a class="active" href="./repoops-flow.html">RepoOps Flow</a>
+    <span class="mode-group"><button id="mode-view" type="button">View</button><button id="mode-design" type="button">Design</button></span>
+    <button id="save" class="primary" type="button">Save layout</button>
+    <button id="fit" type="button">Fit</button>
+  </nav>
+</header>
+<main class="canvas">
+  <svg id="g" viewBox="0 0 1810 1010" aria-label="RepoOps target cognitive flow atlas">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+      <marker id="arrowViolet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a78bfa"/></marker>
+      <marker id="arrowCyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#22d3ee"/></marker>
+      <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#34d399"/></marker>
+      <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f59e0b"/></marker>
+      <marker id="arrowPink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker>
+      <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000" flood-opacity=".28"/></filter>
+    </defs>
+    <g id="zones"></g>
+    <g id="edges"></g>
+    <g id="nodes"></g>
+    <g id="labels"></g>
+    <g id="edge-handles"></g>
+  </svg>
+  <div id="status" class="status">Phase 1 · Design: mou caixes o punts de fletxa · View: lectura neta</div>
+</main>
+</div>
+<script src="./repoops-flow.js"></script>
+</body>
+</html>
