@@ -25,10 +25,11 @@ function patchRunnerDispatch(){
  const rs=labels.querySelectorAll('rect'),ts=labels.querySelectorAll('text');if(rs.length&&ts.length){const mx=(sx+tx)/2,my=(sy+ty)/2;const bg=rs[rs.length-1],t=ts[ts.length-1];bg.setAttribute('x',mx-55);bg.setAttribute('y',my-9);bg.setAttribute('width','110');bg.setAttribute('height','18');t.setAttribute('x',mx);t.setAttribute('y',my+3);t.textContent='allowlisted dispatch'}
 }
 function patch(){patchZones();patchIntake();patchRunnerDispatch()}
-function schedule(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;patch()})}
+function schedule(){if(raf)return;raf=requestAnimationFrame(()=>requestAnimationFrame(()=>{raf=0;patch()}))}
 new MutationObserver(schedule).observe(nodes,{subtree:true,attributes:true,attributeFilter:['transform']});
 new MutationObserver(schedule).observe(zones,{childList:true});
 new MutationObserver(schedule).observe(edges,{childList:true});
 new MutationObserver(schedule).observe(handles,{childList:true});
-patch();
+window.addEventListener('load',schedule,{once:true});
+schedule();
 })();
