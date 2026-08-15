@@ -12,11 +12,11 @@ function patchZones(){
 function patchIntake(){
  const ps=edges.querySelectorAll('path');if(ps.length<13)return;
  const intake=B('intake'),record=B('featureRecord');if(!intake||!record)return;
- const hs=[...handles.querySelectorAll('[data-edge="12"]')];
  const S={x:intake.x+intake.w/2,y:intake.y+intake.h},T={x:record.x,y:record.y+record.h/2};
- let C1={x:S.x,y:S.y+55},C2={x:T.x-34,y:T.y};
- if(hs.length>=2){C1={x:+hs[0].getAttribute('cx'),y:+hs[0].getAttribute('cy')};C2={x:+hs[1].getAttribute('cx'),y:+hs[1].getAttribute('cy')}}
+ const C1={x:S.x,y:S.y+46},C2={x:T.x-34,y:T.y-12};
  ps[12].setAttribute('d',`M${S.x} ${S.y}C${C1.x} ${C1.y} ${C2.x} ${C2.y} ${T.x} ${T.y}`);
+ const hs=[...handles.querySelectorAll('[data-edge="12"]')];
+ if(hs.length>=2){hs[0].setAttribute('cx',C1.x);hs[0].setAttribute('cy',C1.y);hs[1].setAttribute('cx',C2.x);hs[1].setAttribute('cy',C2.y)}
 }
 function patchRunnerDispatch(){
  const ps=edges.querySelectorAll('path'),runner=B('runner'),surface=wrapperSurface();if(!ps.length||!runner||!surface)return;
