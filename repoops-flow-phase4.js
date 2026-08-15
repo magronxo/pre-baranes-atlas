@@ -34,7 +34,7 @@ function renderPrimitives(){
 }
 function renderTrace(){
  traceLayer.innerHTML='';const engine=zones.querySelector('.zone-engine');if(!engine)return;
- const x=205,w=1400,y=1067,h=38;traceLayer.appendChild(E('rect',{class:'identity-trace-bg',x,y,width:w,height:h,rx:12}));
+ const x=205,w=1400,y=1047,h=38;traceLayer.appendChild(E('rect',{class:'identity-trace-bg',x,y,width:w,height:h,rx:12}));
  let t=E('text',{class:'identity-trace-title',x:x+16,y:y+14});t.textContent='IDENTITY TRACE';traceLayer.appendChild(t);
  const items=['job_id','transaction_id','capability_id','reservation_id','attempt_id','candidate_id','commit_sha'];const start=x+155,end=x+w-30,step=(end-start)/(items.length-1);
  items.forEach((it,i)=>{const px=start+i*step;const q=E('text',{class:'identity-trace-item',x:px,y:y+25});q.textContent=it;traceLayer.appendChild(q);if(i<items.length-1){const a=E('text',{class:'identity-trace-arrow',x:px+step/2,y:y+25});a.textContent='→';traceLayer.appendChild(a)}});
