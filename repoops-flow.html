@@ -11,7 +11,7 @@
 <header class="top">
   <div>
     <h1>Atlas · RepoOps Flow</h1>
-    <div class="sub"><span class="target-badge">TARGET COGNITIVE MODEL</span><span>Phase 2 · lifecycle ↔ wrappers · governed repo effect</span></div>
+    <div class="sub"><span class="target-badge">TARGET COGNITIVE MODEL</span><span>Phase 3 · lifecycle ↔ wrappers · cognitive cards</span></div>
   </div>
   <nav class="nav">
     <a href="./index.html">Home</a>
@@ -41,7 +41,7 @@
     <g id="labels"></g>
     <g id="edge-handles"></g>
   </svg>
-  <div id="status" class="status">Phase 2 · lifecycle ↔ wrappers · Design per modelar</div>
+  <div id="status" class="status">Phase 3 · Design per modelar · View per entendre wrappers</div>
 </main>
 </div>
 <script src="./repoops-flow.js"></script>
@@ -57,5 +57,6 @@ function draw(){const p=box('planOpenCode'),i=box('implementer'),c=box('candidat
 new MutationObserver(()=>requestAnimationFrame(draw)).observe(nodes,{subtree:true,attributes:true,attributeFilter:['transform']});draw();
 })();
 </script>
+<script src="./repoops-flow-phase3.js"></script>
 </body>
 </html>
