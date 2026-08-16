@@ -24,7 +24,12 @@ function patchRunnerDispatch(){
  const p=ps[ps.length-1];p.setAttribute('d',`M${sx} ${sy}C${sx} ${sy-58} ${tx+70} ${ty+44} ${tx} ${ty}`);
  const rs=labels.querySelectorAll('rect'),ts=labels.querySelectorAll('text');if(rs.length&&ts.length){const mx=(sx+tx)/2,my=(sy+ty)/2;const bg=rs[rs.length-1],t=ts[ts.length-1];bg.setAttribute('x',mx-55);bg.setAttribute('y',my-9);bg.setAttribute('width','110');bg.setAttribute('height','18');t.setAttribute('x',mx);t.setAttribute('y',my+3);t.textContent='allowlisted dispatch'}
 }
-function patch(){patchZones();patchIntake();patchRunnerDispatch()}
+function patchOpenSourceLink(){
+ const sub=document.querySelector('.top .sub');if(!sub||sub.querySelector('.repoops-sdd-oss'))return;
+ const a=document.createElement('a');a.className='repoops-sdd-oss';a.href='https://github.com/CollSalvia-Org/sdd-framework';a.target='_blank';a.rel='noopener noreferrer';a.textContent='Open source · SDD Framework ↗';a.style.cssText='margin-left:4px;color:#fde68a;text-decoration:none;font-weight:800;white-space:nowrap';
+ sub.appendChild(a);
+}
+function patch(){patchZones();patchIntake();patchRunnerDispatch();patchOpenSourceLink()}
 function schedule(){if(raf)return;raf=requestAnimationFrame(()=>requestAnimationFrame(()=>{raf=0;patch()}))}
 new MutationObserver(schedule).observe(nodes,{subtree:true,attributes:true,attributeFilter:['transform']});
 new MutationObserver(schedule).observe(zones,{childList:true});
