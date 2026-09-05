@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Routing & Orchestration — BARANES Atlas Lab</title>
+<meta name="description" content="Vista interactiva no canònica de routing, orquestració, autoritat, execució, evidència i effect truth al BARANES Atlas Lab.">
+<link rel="stylesheet" href="./routing-orchestration.css">
+</head>
+<body data-mode="view">
+<header class="top">
+  <div class="topin">
+    <a class="brand" href="./index.html">BARANES ATLAS LAB<small>VISUAL MODELS · DRAFTS · HISTORY</small></a>
+    <nav class="nav">
+      <a href="./index.html">Lab home</a>
+      <a class="active" href="./routing-orchestration.html">Routing &amp; Orchestration</a>
+      <a href="./react-flow-test.html">Old System Atlas</a>
+      <a href="./modules-atlas.html">Old Modules</a>
+      <a href="./data-observability.html">Old Data</a>
+      <a href="./repoops-flow.html">Old RepoOps</a>
+      <a class="public" href="https://magronxo.github.io/baranes-site/atlas/">Public Atlas ↗</a>
+    </nav>
+  </div>
+</header>
+
+<div class="notice">
+  <div class="noticein">
+    <b>ATLAS LAB · NON-CANONICAL</b>
+    <span>Aquesta vista modela routing i orquestració. No concedeix autoritat ni converteix candidats en arquitectura canònica.</span>
+  </div>
+</div>
+
+<main class="workspace">
+  <header class="toolbar">
+    <div class="heading">
+      <div class="kicker">CURRENT MODEL · CANDIDATE</div>
+      <div class="title-row">
+        <h1>Routing &amp; Orchestration</h1>
+        <span class="model-status">INTERACTIVE V1</span>
+      </div>
+      <p>Authority plane, ingress i binding, actors actuals, candidats operacionals i retorn d'execució/evidència sense confondre routing amb autoritat.</p>
+    </div>
+
+    <div class="actions">
+      <span class="mode-group">
+        <button id="mode-view" type="button">View</button>
+        <button id="mode-design" type="button">Design</button>
+      </span>
+      <button id="save-layout" type="button">Save layout</button>
+      <button id="reset-layout" type="button">Reset</button>
+      <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+      <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+      <button id="fit" type="button">Fit</button>
+    </div>
+
+    <div class="filters" aria-label="Layer filters">
+      <span>Layers</span>
+      <button class="active" data-plane="all" type="button">All</button>
+      <button data-plane="authority" type="button">Authority</button>
+      <button data-plane="routing" type="button">Routing</button>
+      <button data-plane="orchestration" type="button">Orchestration</button>
+      <button data-plane="execution" type="button">Execution / Evidence</button>
+    </div>
+  </header>
+
+  <section class="canvas-wrap">
+    <svg id="routing-atlas" viewBox="0 0 1620 930" aria-label="Routing and orchestration architecture model">
+      <defs>
+        <marker id="arrow-authority" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z"/></marker>
+        <marker id="arrow-routing" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z"/></marker>
+        <marker id="arrow-orchestration" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z"/></marker>
+        <marker id="arrow-execution" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z"/></marker>
+        <marker id="arrow-evidence" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z"/></marker>
+        <marker id="arrow-candidate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z"/></marker>
+        <filter id="shadow" x="-25%" y="-35%" width="150%" height="180%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000" flood-opacity=".28"/></filter>
+      </defs>
+      <g id="planes"></g>
+      <g id="edges"></g>
+      <g id="edge-labels"></g>
+      <g id="nodes"></g>
+      <g id="edge-handles"></g>
+    </svg>
+
+    <div id="status" class="statusline">View · selecciona un node · arrossega el fons per pan · wheel o +/− per zoom</div>
+    <aside id="info-card" class="info-card" aria-live="polite"></aside>
+  </section>
+</main>
+
+<section class="disclosure">
+  <b>Regla de lectura.</b> General Master representa la ruta tècnica; Oriol conserva product intent i decisions materials. Execution reporta efectes, Evidence els sosté i la semàntica afectada determina effect truth. Els nodes marcats CANDIDATE continuen no admesos.
+</section>
+
+<script src="./routing-orchestration.js"></script>
+</body>
+</html>
